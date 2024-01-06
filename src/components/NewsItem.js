@@ -1,21 +1,24 @@
 import React, { Component } from "react";
 
 export class NewsItem extends Component {
+
+  
+
   render() {
 
-    let {title , description} = this.props;
+    let {title , description, image_url, news_url} = this.props;
 
     return (
-      <div>
+      <div className="my-3">
         <div className="card" style={{width: "18rem"}}>
-          <img src="https://ichef.bbci.co.uk/live-experience/cps/624/cpsprodpb/7E03/production/_132195223_gettyimages-1801895648.jpg" className="card-img-top" alt="..." />
+          <img src={image_url} className="card-img-top" alt="..." />
           <div className="card-body">
-            <h5 className="card-title">{title}</h5>
+            <h5 className="card-title">{title}...</h5>
             <p className="card-text">
-              {description}
+              {description}...
             </p>
-            <a href="/newsItem" className="btn btn-primary">
-              Go somewhere
+            <a href={news_url} target="_blank" className="btn btn-sm btn-primary">
+              Read More
             </a>
           </div>
         </div>
@@ -23,5 +26,5 @@ export class NewsItem extends Component {
     );
   }
 }
-
+ 
 export default NewsItem;
