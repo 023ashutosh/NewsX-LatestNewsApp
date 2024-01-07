@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.news_image_size {
+  width: 288px;
+  height: 128px;
+  object-fit: cover;
+}
