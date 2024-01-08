@@ -2,24 +2,51 @@ import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 
 export class News extends Component {
- 
-
   constructor() {
     super();
     this.state = {
       articles: [],
       loading: false,
+      page: 1,
     };
   }
 
   async componentDidMount() {
     let url =
-      "https://newsapi.org/v2/everything?q=global&apiKey=896903060ae545d899f1f44b8f469f8a";
+      "https://newsapi.org/v2/top-headlines?q=global&apiKey=896903060ae545d899f1f44b8f469f8a&pageSize=9&page=1";
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
-    this.setState({ articles: parsedData.articles });
+    this.setState({
+      articles: parsedData.articles,
+      totalResults: parsedData.totalResults,
+    });
   }
+
+  handleNextClick = async () => {
+    if (this.state.page + 1 > Math.ceil(this.state.totalResults / 9)) {
+    } else {
+      let url = `https://newsapi.org/v2/top-headlines?q=global&apiKey=896903060ae545d899f1f44b8f469f8a&pageSize=9&page=${
+        this.state.page + 1
+      }`;
+      let data = await fetch(url);
+      let parsedData = await data.json();
+      this.setState({
+        page: this.state.page + 1,
+        articles: parsedData.articles,
+      });
+    }
+  };
+
+  handlePrevClick = async () => {
+    let url = `https://newsapi.org/v2/top-headlines?q=global&apiKey=896903060ae545d899f1f44b8f469f8a&pageSize=9&page=${
+      this.state.page - 1
+    }`;
+    let data = await fetch(url);
+    let parsedData = await data.json();
+    console.log(parsedData);
+    this.setState({ page: this.state.page - 1, articles: parsedData.articles });
+  };
 
   render() {
     return (
@@ -52,6 +79,23 @@ export class News extends Component {
               </div>
             );
           })}
+        </div>
+        <div className="container d-flex justify-content-around">
+          <button
+            type="button"
+            className="btn btn-dark"
+            onClick={this.handlePrevClick}
+            disabled={this.state.page <= 1}
+          >
+            &laquo; Previous
+          </button>
+          <button
+            type="button"
+            className="btn btn-dark"
+            onClick={this.handleNextClick}
+          >
+            Next &raquo;
+          </button>
         </div>
       </div>
     );
