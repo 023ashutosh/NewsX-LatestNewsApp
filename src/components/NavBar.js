@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import PropTypes from "prop-types";
 
 export class NavBar extends Component {
-//   static propTypes = {};
+  //   static propTypes = {};
 
   render() {
     return (
@@ -26,20 +26,40 @@ export class NavBar extends Component {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="/">
+                  <a className="nav-link mx-4" aria-current="page" href="/">
                     Home
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/about">
-                    About
+                  <a className="nav-link mx-4" href="/business">
+                    Business
                   </a>
                 </li>
-                {/* <li className="nav-item">
-                  <a className="nav-link" href="#">
+                <li className="nav-item">
+                  <a className="nav-link mx-4" href="/entertainment">
+                    Entertainment
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link mx-4" href="/health">
+                    Health
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link mx-4" href="/science">
+                    Science
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link mx-4" href="/sports">
                     Sports
                   </a>
-                </li> */}
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link mx-4" href="/technology">
+                    Technology
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -50,5 +70,3 @@ export class NavBar extends Component {
 }
 
 export default NavBar;
-
-
