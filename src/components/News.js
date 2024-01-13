@@ -12,8 +12,8 @@ export class News extends Component {
     };
   }
 
-  async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=896903060ae545d899f1f44b8f469f8a&page=1&pageSize=${this.props.pageSize}`;
+  async updateNews() {
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=896903060ae545d899f1f44b8f469f8a&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -24,30 +24,18 @@ export class News extends Component {
     });
   }
 
+  async componentDidMount() {
+    this.updateNews();
+  }
+
   handleNextClick = async () => {
-    if (!(this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize))){
-      let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=896903060ae545d899f1f44b8f469f8a&pageSize=${
-        this.props.pageSize
-      }&page=${this.state.page + 1}`;
-      this.setState({ loading: true });
-      let data = await fetch(url);
-      let parsedData = await data.json();
-      this.setState({
-        page: this.state.page + 1,
-        articles: parsedData.articles,
-        loading: false
-      });
-    }
+    this.setState({ page: this.state.page + 1 });
+    this.updateNews();
   };
 
   handlePrevClick = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=896903060ae545d899f1f44b8f469f8a&pageSize=${
-      this.props.pageSize
-    }&page=${this.state.page - 1}`;
-    let data = await fetch(url);
-    let parsedData = await data.json();
-    console.log(parsedData);
-    this.setState({ page: this.state.page - 1, articles: parsedData.articles });
+    this.setState({ page: this.state.page - 1 });
+    this.updateNews();
   };
 
   render() {
@@ -64,7 +52,7 @@ export class News extends Component {
                 <NewsItem
                   title={
                     element.title
-                      ? element.title.slice(0, 45)
+                      ? element.title.slice(0, 80)
                       : "Click on Read More"
                   }
                   description={
@@ -78,6 +66,11 @@ export class News extends Component {
                       : "https://img-cdn.tnwcdn.com/image/tnw-blurple?filter_last=1&fit=1280%2C640&url=https%3A%2F%2Fcdn0.tnwcdn.com%2Fwp-content%2Fblogs.dir%2F1%2Ffiles%2F2023%2F12%2Fglobalmobility-e1703163589861.jpeg&signature=8a6266fe80c1d552ccde0aed4beafcdb"
                   }
                   news_url={element.url}
+                  publishedAt={element.publishedAt}
+                  author={
+                    element.author ? "| " + element.author.slice(0, 10) : " "
+                  }
+                  source={element.source.name.slice(0, 10) + " "}
                 />
               </div>
             );
@@ -110,5 +103,3 @@ export class News extends Component {
 }
 
 export default News;
-
-

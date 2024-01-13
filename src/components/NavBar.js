@@ -6,7 +6,7 @@ export class NavBar extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
           <div className="container-fluid">
             <Link className="navbar-brand" to="/">
               <b>NewsX</b>
