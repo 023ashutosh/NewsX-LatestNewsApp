@@ -1,15 +1,22 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
+import InfiniteScroll from "react-infinite-scroll-component";
 import Spinner from "./Spinner";
 
 export class News extends Component {
-  constructor() {
-    super();
+  
+  capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
+  constructor(props) {
+    super(props);
     this.state = {
       articles: [],
       loading: false,
       page: 1,
     };
+    document.title = `NewsX : ${this.capitalizeFirstLetter(this.props.category)}`;
   }
 
   async updateNews() {
@@ -42,9 +49,17 @@ export class News extends Component {
     return (
       <div className="container my-3">
         <h2 className="text-center">
-          <b>NewsX</b> : Top Headlines
+          <b>NewsX</b> : {this.capitalizeFirstLetter(this.props.category)}
         </h2>
-        {this.state.loading && <Spinner />}
+        {/* {this.state.loading && <Spinner />} */}
+
+        <InfiniteScroll
+          dataLength={this.state.articles.length}
+          next={this.fetchMoreData}
+          hasMore={true}
+          loader={<h4><Spinner /></h4>}
+        >
+
         <div className="row my-4">
           {this.state.articles.map((element) => {
             return (
@@ -73,9 +88,12 @@ export class News extends Component {
                   source={element.source.name.slice(0, 10) + " "}
                 />
               </div>
+
+              
             );
           })}
         </div>
+        </InfiniteScroll>
         <div className="container d-flex justify-content-around">
           <button
             type="button"
