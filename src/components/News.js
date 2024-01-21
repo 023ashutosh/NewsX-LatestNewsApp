@@ -55,7 +55,7 @@ const News = (props) => {
 
   return (
     <>
-      <h1 className="text-center my-4 mt-5.5 mb-1.25">
+      <h1 className="text-center mt-4 pt-5">
         <b>NewsX</b> : {capitalizeFirstLetter(props.category)}
       </h1>
       {loading && <Spinner />}
