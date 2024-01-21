@@ -2,8 +2,25 @@ import React, { useState, useEffect } from "react";
 import NewsItem from "./NewsItem";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Spinner from "./Spinner";
+import Darkmode from "darkmode-js";
 
 const News = (props) => {
+  const options = {
+    bottom: "50%",
+    right: "32px",
+    time: "1.5s",
+    mixColor: "#fff",
+    backgroundColor: "#fff",
+    buttonColorDark: "#000",
+    buttonColorLight: "#fff",
+    saveInCookies: true,
+    label: "🌓",
+    autoMatchOsTheme: false,
+  };
+
+  const darkmode = new Darkmode(options);
+  darkmode.showWidget();
+
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -55,7 +72,8 @@ const News = (props) => {
 
   return (
     <>
-      <h1 className="text-center mt-4 pt-5">
+      <h1 className="text-center mt-4 pt-5" 
+        style={{ zIndex: "-1" }}>
         <b>NewsX</b> : {capitalizeFirstLetter(props.category)}
       </h1>
       {loading && <Spinner />}
