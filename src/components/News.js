@@ -13,6 +13,8 @@ const News = (props) => {
     backgroundColor: "#fff",
     buttonColorDark: "#000",
     buttonColorLight: "#fff",
+
+    
     saveInCookies: true,
     label: "🌓",
     autoMatchOsTheme: false,
