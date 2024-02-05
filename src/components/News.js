@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NewsItem from "./NewsItem";
 import InfiniteScroll from "react-infinite-scroll-component";
+
 import Spinner from "./Spinner";
 
 import Darkmode from "darkmode-js";
